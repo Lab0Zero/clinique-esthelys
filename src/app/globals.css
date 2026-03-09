@@ -1,26 +1,137 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-dark: #0a0a0a;
+  --color-dark-secondary: #141414;
+  --color-dark-tertiary: #1a1a1a;
+  --color-dark-card: #111111;
+  --color-light: #f5f5f0;
+  --color-light-secondary: #c8c8c0;
+  --color-light-muted: #888880;
+  --color-light-dim: #555550;
+  --color-accent: #c8b89a;
+  --color-border-dark: #2a2a2a;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-primary), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-display), "Georgia", serif;
+
+  --breakpoint-xs: 475px;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    overflow-x: hidden;
+  }
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.0;
+    font-size: clamp(2.75rem, 7vw + 0.5rem, 6.5rem);
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.08;
+    font-size: clamp(2rem, 5vw + 0.5rem, 4rem);
+    letter-spacing: -0.02em;
+  }
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.2;
+    font-size: clamp(1.25rem, 2vw + 0.25rem, 1.75rem);
+  }
+  p, li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-light-secondary);
+  }
+  @media (min-width: 768px) {
+    p, li { font-size: 16px; }
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-[1400px] px-5;
+  }
+  @media (min-width: 640px) { .container-site { @apply px-8; } }
+  @media (min-width: 1024px) { .container-site { @apply px-12; } }
+
+  .section-number {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-light-muted);
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2
+           font-medium min-h-[44px] px-6 py-3 text-sm
+           transition-all duration-300 ease-out;
+    border: 1px solid var(--color-light-muted);
+    color: var(--color-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .btn-dark:hover {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+  }
+
+  .btn-light {
+    @apply inline-flex items-center justify-center gap-2
+           font-medium min-h-[44px] px-6 py-3 text-sm
+           transition-all duration-300 ease-out;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .btn-light:hover {
+    background-color: var(--color-accent);
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-sm font-medium transition-all duration-200;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-light-secondary);
+  }
+  .link-arrow:hover {
+    color: var(--color-light);
+    gap: 12px;
+  }
+
+  .divider {
+    border-top: 1px solid var(--color-border-dark);
+  }
+}
+
+/* Custom cursor dot for hover effects */
+@media (hover: hover) {
+  a:hover, button:hover {
+    cursor: pointer;
+  }
 }
