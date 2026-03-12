@@ -18,7 +18,7 @@ export default function CustomCursor() {
     const onMouseMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+        dotRef.current.style.transform = `translate(${e.clientX - 5}px, ${e.clientY - 5}px)`;
       }
     };
 
@@ -29,8 +29,8 @@ export default function CustomCursor() {
     };
 
     const animate = () => {
-      circlePos.current.x += (mouse.current.x - circlePos.current.x) * 0.1;
-      circlePos.current.y += (mouse.current.y - circlePos.current.y) * 0.1;
+      circlePos.current.x += (mouse.current.x - circlePos.current.x) * 0.15;
+      circlePos.current.y += (mouse.current.y - circlePos.current.y) * 0.15;
       if (circleRef.current) {
         circleRef.current.style.transform = `translate(${circlePos.current.x - 20}px, ${circlePos.current.y - 20}px)`;
       }
@@ -57,7 +57,7 @@ export default function CustomCursor() {
       <div
         ref={dotRef}
         className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full bg-fg mix-blend-difference transition-[width,height] duration-200"
-        style={{ width: hovering ? 12 : 8, height: hovering ? 12 : 8 }}
+        style={{ width: hovering ? 14 : 10, height: hovering ? 14 : 10 }}
       />
       <div
         ref={circleRef}
@@ -65,7 +65,7 @@ export default function CustomCursor() {
         style={{
           width: hovering ? 50 : 40,
           height: hovering ? 50 : 40,
-          borderColor: hovering ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.2)",
+          borderColor: hovering ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.35)",
           marginLeft: hovering ? -5 : 0,
           marginTop: hovering ? -5 : 0,
         }}
