@@ -72,8 +72,6 @@ export default function FeatureCarousel() {
   return (
     <section
       className="py-20 sm:py-28 md:py-36 border-t border-border-light"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div className="container-site">
         <ScrollReveal>
@@ -118,7 +116,11 @@ export default function FeatureCarousel() {
             </div>
 
             {/* Right — image with clip-path transition + grayscale→color on hover */}
-            <div className="relative overflow-hidden group">
+            <div
+              className="relative overflow-hidden group"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}

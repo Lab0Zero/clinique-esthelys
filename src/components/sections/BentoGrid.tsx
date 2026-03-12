@@ -15,8 +15,8 @@ export default function BentoGrid() {
       <div className="container-site">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           <ClipReveal direction="left" delay={0.1} duration={1.2}>
-            <div className="aspect-[3/4] relative overflow-hidden">
-              <Image src="/images/clinique.jpg" alt="Clinique Esthelys" fill className="object-cover grayscale" sizes="(max-width: 1024px) 100vw, 50vw" quality={85} />
+            <div className="aspect-[3/4] relative overflow-hidden group">
+              <Image src="/images/clinique.jpg" alt="Clinique Esthelys" fill className="object-cover grayscale transition-all duration-700 lg:group-hover:grayscale-0" sizes="(max-width: 1024px) 100vw, 50vw" quality={85} />
             </div>
           </ClipReveal>
 
