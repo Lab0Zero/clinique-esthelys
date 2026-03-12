@@ -38,8 +38,7 @@ export default function CustomerStories() {
           {/* Left — featured quote */}
           <div className="lg:col-span-3">
             <ScrollReveal>
-              <span className="section-number">008</span>
-              <h2 className="mt-3">
+              <h2>
                 Nos patientes{" "}
                 <span className="italic">témoignent</span>
               </h2>

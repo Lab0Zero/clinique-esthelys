@@ -6,7 +6,6 @@ import ClipReveal from "@/components/ui/ClipReveal";
 
 const features = [
   {
-    number: "002",
     title: "Injections &\nVolumétrie",
     description: "Botox, acide hyaluronique, profils harmonieux. Des résultats naturels pour sublimer chaque trait de votre visage.",
     linkText: "Explorer",
@@ -14,7 +13,6 @@ const features = [
     image: "/images/injections.jpg",
   },
   {
-    number: "003",
     title: "Soins de\nla Peau",
     description: "Peelings, mésothérapie, skinboosters. Retrouvez un teint éclatant et une peau revitalisée en profondeur.",
     linkText: "Découvrir",
@@ -50,8 +48,7 @@ function FeatureRow({ feature: f, index: i, reversed }: { feature: (typeof featu
         transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
         className={`lg:col-span-3 flex flex-col justify-start pt-4 ${reversed ? "lg:order-3" : "lg:order-1"}`}
       >
-        <span className="section-number">{f.number}</span>
-        <h2 className="mt-3 whitespace-pre-line">{f.title}</h2>
+        <h2 className="whitespace-pre-line">{f.title}</h2>
       </motion.div>
 
       {/* Large center image — clip-path reveal */}

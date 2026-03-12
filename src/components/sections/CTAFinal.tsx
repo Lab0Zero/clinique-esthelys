@@ -9,16 +9,6 @@ export default function CTAFinal() {
       id="contact"
     >
       <div className="container-site text-center">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="section-number inline-block"
-        >
-          009
-        </motion.span>
-
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

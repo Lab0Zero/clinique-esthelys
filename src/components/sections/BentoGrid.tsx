@@ -24,8 +24,7 @@ export default function BentoGrid() {
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}>
-              <span className="section-number">007</span>
-              <h2 className="mt-3">
+              <h2>
                 L&apos;expertise au service<br /><span className="italic">de votre beauté</span>
               </h2>
               <p className="mt-5 max-w-md">

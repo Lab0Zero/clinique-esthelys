@@ -5,7 +5,6 @@ import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 interface Slide {
-  number: string;
   title: string;
   description: string;
   image: string;
@@ -15,7 +14,6 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    number: "004",
     title: "Botox & Toxine Botulique",
     description:
       "Traitement de référence pour lisser les rides d'expression. Résultat naturel, visage détendu et rajeuni.",
@@ -28,7 +26,6 @@ const slides: Slide[] = [
     },
   },
   {
-    number: "005",
     title: "Acide Hyaluronique",
     description:
       "Restaurez les volumes, redessinez les contours du visage et repulpez les lèvres.",
@@ -41,7 +38,6 @@ const slides: Slide[] = [
     },
   },
   {
-    number: "006",
     title: "Skinboosters & Mésothérapie",
     description:
       "Hydratation profonde, éclat retrouvé, peau lissée. Des protocoles personnalisés.",
@@ -74,8 +70,7 @@ export default function FeatureCarousel() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                  <span className="section-number">{slide.number}</span>
-                  <h2 className="mt-3">{slide.title}</h2>
+                  <h2>{slide.title}</h2>
                   <p className="mt-4 max-w-md leading-relaxed">
                     {slide.description}
                   </p>

@@ -31,10 +31,11 @@ const wordReveal = {
   },
 };
 
-/** Animated word wrapper — each word gets its own overflow clip */
+/** Animated word wrapper — each word gets its own overflow clip
+ *  Uses padding + negative margin to prevent clipping of ascenders/descenders */
 function AnimatedWord({ word, className }: { word: string; className?: string }) {
   return (
-    <span className={`inline-block overflow-hidden ${className || ""}`}>
+    <span className={`inline-block overflow-hidden py-[0.15em] -my-[0.15em] ${className || ""}`}>
       <motion.span variants={wordReveal} className="inline-block">
         {word}
       </motion.span>
@@ -111,24 +112,6 @@ export default function Hero() {
         className="relative z-10 h-full flex flex-col justify-end pb-16 sm:pb-20 md:pb-24"
       >
         <div className="container-site">
-          {/* Section number */}
-          <motion.span
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.4, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="section-number-light block mb-4"
-          >
-            001
-          </motion.span>
-
-          {/* ── Decorative accent line ── */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 1.6, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="origin-left w-12 h-[1px] bg-accent mb-6"
-          />
-
           {/* ── Title — word by word reveal ── */}
           <h1 className="max-w-[900px] text-light">
             {/* Line 1: "L'art de la" */}
