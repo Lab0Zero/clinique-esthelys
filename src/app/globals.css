@@ -36,7 +36,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior handled by Lenis — do NOT set scroll-behavior: smooth here */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

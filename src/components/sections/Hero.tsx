@@ -32,10 +32,10 @@ const wordReveal = {
 };
 
 /** Animated word wrapper — each word gets its own overflow clip
- *  Uses padding + negative margin to prevent clipping of ascenders/descenders */
+ *  Generous padding prevents Playfair Display descenders/ascenders from being clipped */
 function AnimatedWord({ word, className }: { word: string; className?: string }) {
   return (
-    <span className={`inline-block overflow-hidden py-[0.15em] -my-[0.15em] ${className || ""}`}>
+    <span className={`inline-block overflow-hidden py-[0.5em] -my-[0.5em] px-[0.1em] -mx-[0.1em] ${className || ""}`}>
       <motion.span variants={wordReveal} className="inline-block">
         {word}
       </motion.span>
