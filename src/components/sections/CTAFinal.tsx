@@ -1,57 +1,66 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function CTAFinal() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-
   return (
     <section
-      ref={ref}
-      className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden border-t border-border-dark"
+      className="py-24 sm:py-32 md:py-40 border-t border-border-light"
       id="contact"
     >
-      {/* Parallax background */}
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-[-20%] bg-dark-secondary"
-      >
-        <div className="absolute inset-0 bg-dark/60" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-light-dim/20 text-sm tracking-widest uppercase">
-            Photo clinique
-          </span>
-        </div>
-      </motion.div>
+      <div className="container-site text-center">
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="section-number inline-block"
+        >
+          009
+        </motion.span>
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-5">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mt-4 max-w-2xl mx-auto"
         >
-          <span className="section-number">009</span>
-          <h2 className="mt-4 text-light max-w-2xl mx-auto">
-            Votre première consultation{" "}
-            <span className="italic">offerte</span>
-          </h2>
-          <p className="mt-5 text-light-secondary max-w-md mx-auto">
-            Rencontrez nos médecins et définissez ensemble votre protocole
-            personnalisé.
-          </p>
-          <div className="mt-8">
-            <a href="#contact" className="btn-light">
-              Prendre rendez-vous
-            </a>
-          </div>
+          Votre première consultation{" "}
+          <span className="italic">offerte</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mt-5 max-w-md mx-auto"
+        >
+          Rencontrez nos médecins et définissez ensemble votre protocole
+          personnalisé.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mt-8"
+        >
+          <MagneticButton as="a" href="#contact" className="btn-light" strength={0.2}>
+            Prendre rendez-vous
+          </MagneticButton>
         </motion.div>
+
+        {/* Decorative line */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.76, 0, 0.24, 1] }}
+          className="mx-auto mt-16 h-[1px] w-24 bg-border-light origin-center"
+        />
       </div>
     </section>
   );

@@ -22,13 +22,12 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border-dark">
+    <footer className="border-t border-border-light">
       <div className="container-site py-14 sm:py-20 md:py-24">
         <div className="grid gap-10 grid-cols-2 md:grid-cols-4">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <p className="font-serif text-2xl text-light">Esthelys</p>
-            <p className="mt-3 text-sm text-light-muted leading-relaxed max-w-[220px]">
+            <p className="font-serif text-2xl text-fg font-bold">Esthelys</p>
+            <p className="mt-3 text-sm text-fg-muted leading-relaxed max-w-[220px]">
               Médecine esthétique à Paris.
               Expertise, élégance, résultats naturels.
             </p>
@@ -36,7 +35,7 @@ export default function Footer() {
 
           {Object.entries(footerLinks).map(([cat, links]) => (
             <div key={cat}>
-              <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-light-muted mb-4">
+              <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-fg-muted mb-4">
                 {cat}
               </p>
               <ul className="space-y-2.5">
@@ -44,7 +43,7 @@ export default function Footer() {
                   <li key={l.label}>
                     <Link
                       href={l.href}
-                      className="text-sm text-light-dim hover:text-light transition-colors duration-300"
+                      className="text-sm text-fg-dim hover:text-fg transition-colors duration-300"
                     >
                       {l.label}
                     </Link>
@@ -55,15 +54,15 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-14 pt-6 border-t border-border-dark flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-light-dim text-center sm:text-left">
+        <div className="mt-14 pt-6 border-t border-border-light flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-fg-dim text-center sm:text-left">
             © {new Date().getFullYear()} Clinique Esthelys. Tous droits réservés.
           </p>
           <div className="flex gap-5">
-            <Link href="#" className="text-xs text-light-dim hover:text-light transition-colors duration-300">
+            <Link href="#" className="text-xs text-fg-dim hover:text-fg transition-colors duration-300">
               Mentions légales
             </Link>
-            <Link href="#" className="text-xs text-light-dim hover:text-light transition-colors duration-300">
+            <Link href="#" className="text-xs text-fg-dim hover:text-fg transition-colors duration-300">
               Confidentialité
             </Link>
           </div>

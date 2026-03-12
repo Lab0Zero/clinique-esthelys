@@ -13,9 +13,13 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      setPastHero(window.scrollY > window.innerHeight - 100);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -31,46 +35,60 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  const isLight = pastHero && !mobileOpen;
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "bg-dark/90 backdrop-blur-xl" : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500`}
+        style={{
+          backgroundColor: isLight
+            ? "rgba(235, 235, 235, 0.8)"
+            : scrolled
+              ? "rgba(10, 10, 10, 0.85)"
+              : "transparent",
+          backdropFilter: scrolled || isLight ? "blur(20px) saturate(180%)" : "none",
+          WebkitBackdropFilter: scrolled || isLight ? "blur(20px) saturate(180%)" : "none",
+          borderBottom: isLight ? "1px solid rgba(0,0,0,0.06)" : "none",
+        }}
       >
         <div className="container-site flex h-16 md:h-20 items-center justify-between">
-          <Link href="/" className="relative z-50 font-serif text-2xl text-light tracking-wide">
-            Esthelys
-          </Link>
-
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((l) => (
-              <Link key={l.href} href={l.href}
-                className="text-[13px] font-medium uppercase tracking-[0.12em] text-light-muted hover:text-light transition-colors duration-300">
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden lg:block">
-            <Link href="#contact" className="btn-dark text-[12px] py-2.5 px-5 min-h-[36px]">
-              Rendez-vous
-            </Link>
-          </div>
-
+          {/* Hamburger left (Redbone style) */}
           <button onClick={() => setMobileOpen(!mobileOpen)}
             className="relative z-50 flex lg:hidden items-center justify-center w-11 h-11"
             aria-label="Menu" aria-expanded={mobileOpen}>
             <div className="flex flex-col justify-center items-center w-6 h-5">
-              <span className={`block h-[1px] w-6 bg-light transition-all duration-300 ${
-                mobileOpen ? "rotate-45 translate-y-[4px]" : ""}`} />
-              <span className={`block h-[1px] w-6 bg-light transition-all duration-300 mt-[7px] ${
-                mobileOpen ? "-rotate-45 -translate-y-[4px]" : ""}`} />
+              <span className={`block h-[1.5px] w-6 rounded-full transition-all duration-300 ${
+                mobileOpen ? "rotate-45 translate-y-[4px] bg-light" : isLight ? "bg-fg" : "bg-light"}`} />
+              <span className={`block h-[1.5px] w-6 rounded-full transition-all duration-300 mt-[7px] ${
+                mobileOpen ? "-rotate-45 -translate-y-[4px] bg-light" : isLight ? "bg-fg" : "bg-light"}`} />
             </div>
           </button>
+
+          {/* Logo */}
+          <Link href="/" className={`relative z-50 font-serif text-2xl font-bold tracking-wide transition-colors duration-300 ${
+            isLight ? "text-fg" : "text-light"
+          }`}>
+            Esthelys
+          </Link>
+
+          {/* Desktop nav — right aligned (Redbone style) */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navLinks.map((l) => (
+              <Link key={l.href} href={l.href}
+                className={`nav-link text-[13px] font-medium uppercase tracking-[0.12em] transition-colors duration-300 ${
+                  isLight
+                    ? "text-fg-muted hover:text-fg"
+                    : "text-light-muted hover:text-light"
+                }`}>
+                {l.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
 
+      {/* Mobile menu — dark fullscreen */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -92,7 +110,7 @@ export default function Navbar() {
               ))}
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.4 }} className="mt-10">
-                <Link href="#contact" onClick={() => setMobileOpen(false)} className="btn-dark">
+                <Link href="#contact" onClick={() => setMobileOpen(false)} className="btn-hero">
                   Prendre rendez-vous
                 </Link>
               </motion.div>

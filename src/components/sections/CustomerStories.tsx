@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const stories = [
   {
@@ -31,16 +32,18 @@ export default function CustomerStories() {
   const story = stories[active];
 
   return (
-    <section className="py-20 sm:py-28 md:py-36 border-t border-border-dark" id="resultats">
+    <section className="py-20 sm:py-28 md:py-36 border-t border-border-light" id="resultats">
       <div className="container-site">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
           {/* Left — featured quote */}
           <div className="lg:col-span-3">
-            <span className="section-number">008</span>
-            <h2 className="mt-3 text-light">
-              Nos patientes{" "}
-              <span className="italic">témoignent</span>
-            </h2>
+            <ScrollReveal>
+              <span className="section-number">008</span>
+              <h2 className="mt-3">
+                Nos patientes{" "}
+                <span className="italic">témoignent</span>
+              </h2>
+            </ScrollReveal>
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -51,16 +54,18 @@ export default function CustomerStories() {
                 transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 className="mt-10 sm:mt-14"
               >
-                <p className="font-serif text-xl sm:text-2xl md:text-3xl text-light leading-snug max-w-2xl">
-                  &ldquo;{story.quote}&rdquo;
+                {/* Large quote mark */}
+                <div className="font-serif text-6xl sm:text-7xl text-fg-dim/30 leading-none select-none mb-2">&ldquo;</div>
+                <p className="font-serif text-xl sm:text-2xl md:text-3xl text-fg leading-snug max-w-2xl -mt-8">
+                  {story.quote}&rdquo;
                 </p>
-                <div className="mt-6 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-dark-tertiary" />
+                <div className="mt-8 flex items-center gap-4">
+                  <div className="w-[1px] h-8 bg-border-light" />
                   <div>
-                    <p className="text-sm font-medium text-light">
+                    <p className="text-sm font-medium text-fg">
                       {story.name}
                     </p>
-                    <p className="text-xs text-light-muted">{story.year}</p>
+                    <p className="text-xs text-fg-muted">{story.year}</p>
                   </div>
                 </div>
               </motion.div>
@@ -70,18 +75,32 @@ export default function CustomerStories() {
           {/* Right — story list */}
           <div className="lg:col-span-2 flex flex-col justify-center">
             {stories.map((s, i) => (
-              <button
+              <motion.button
                 key={s.name}
                 onClick={() => setActive(i)}
-                className={`w-full text-left py-5 border-t border-border-dark transition-all duration-300 group ${
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                className={`w-full text-left py-5 border-t border-border-light transition-all duration-300 group ${
                   i === active ? "opacity-100" : "opacity-40 hover:opacity-70"
                 }`}
               >
-                <p className="text-sm font-medium text-light">
-                  {s.treatment}
-                </p>
-                <p className="mt-1 text-xs text-light-muted">{s.name}</p>
-              </button>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-fg">
+                      {s.treatment}
+                    </p>
+                    <p className="mt-1 text-xs text-fg-muted">{s.name}</p>
+                  </div>
+                  <motion.span
+                    animate={{ x: i === active ? 4 : 0 }}
+                    className="text-fg-dim group-hover:text-fg transition-colors duration-300"
+                  >
+                    →
+                  </motion.span>
+                </div>
+              </motion.button>
             ))}
           </div>
         </div>
