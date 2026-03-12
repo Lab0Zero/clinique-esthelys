@@ -9,6 +9,8 @@ export default function Home() {
   return (
     <>
       <Hero />
+      {/* Smooth dark→light transition zone */}
+      <div className="h-24 sm:h-32 bg-gradient-to-b from-dark to-bg" />
       <FeatureDuo />
       <FeatureCarousel />
       <BentoGrid />

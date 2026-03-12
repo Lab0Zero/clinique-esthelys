@@ -4,11 +4,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 /* ── helpers ─────────────────────────────────────────────── */
 
-/** Split a string into an array of characters (keeps spaces) */
-function splitChars(text: string) {
-  return text.split("");
-}
-
 /** Variants for the reveal curtain */
 const curtain = {
   initial: { scaleY: 1 },
@@ -18,23 +13,34 @@ const curtain = {
   },
 };
 
-/** Container for staggered children */
-const staggerContainer = (delayBase: number) => ({
+/** Container for staggered word reveals */
+const wordStagger = (delayBase: number) => ({
   initial: {},
   animate: {
-    transition: { staggerChildren: 0.035, delayChildren: delayBase },
+    transition: { staggerChildren: 0.08, delayChildren: delayBase },
   },
 });
 
-/** Single character reveal — clip from bottom */
-const charReveal = {
-  initial: { y: "100%", opacity: 0 },
+/** Single word reveal — clip from bottom */
+const wordReveal = {
+  initial: { y: "110%", opacity: 0 },
   animate: {
     y: "0%",
     opacity: 1,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const },
+    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const },
   },
 };
+
+/** Animated word wrapper — each word gets its own overflow clip */
+function AnimatedWord({ word, className }: { word: string; className?: string }) {
+  return (
+    <span className={`inline-block overflow-hidden ${className || ""}`}>
+      <motion.span variants={wordReveal} className="inline-block">
+        {word}
+      </motion.span>
+    </span>
+  );
+}
 
 /* ── component ───────────────────────────────────────────── */
 
@@ -86,7 +92,7 @@ export default function Hero() {
             className="absolute inset-0 w-full h-full object-cover"
             src="/hero-bg.mp4"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-dark/20 to-bg" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/30 to-dark/80" />
         </motion.div>
 
         {/* Cinematic vignette overlay */}
@@ -94,7 +100,7 @@ export default function Hero() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(10,10,10,0.6) 100%)",
+              "radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(10,10,10,0.7) 100%)",
           }}
         />
       </motion.div>
@@ -123,45 +129,29 @@ export default function Hero() {
             className="origin-left w-12 h-[1px] bg-accent mb-6"
           />
 
-          {/* ── Title — letter by letter reveal ── */}
+          {/* ── Title — word by word reveal ── */}
           <h1 className="max-w-[900px] text-light">
             {/* Line 1: "L'art de la" */}
             <motion.span
-              variants={staggerContainer(1.5)}
+              variants={wordStagger(1.5)}
               initial="initial"
               animate="animate"
-              className="inline-flex flex-wrap overflow-hidden"
+              className="flex flex-wrap gap-x-[0.3em]"
             >
-              {splitChars(line1).map((char, i) => (
-                <motion.span
-                  key={`l1-${i}`}
-                  variants={charReveal}
-                  className="inline-block"
-                  style={{ whiteSpace: char === " " ? "pre" : undefined }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
+              {line1.split(" ").map((word, i) => (
+                <AnimatedWord key={`l1-${i}`} word={word} />
               ))}
             </motion.span>
 
-            <br />
-
             {/* Line 2: "beauté naturelle" — italic, delayed */}
             <motion.span
-              variants={staggerContainer(1.9)}
+              variants={wordStagger(2.0)}
               initial="initial"
               animate="animate"
-              className="inline-flex flex-wrap overflow-hidden italic"
+              className="flex flex-wrap gap-x-[0.3em] italic"
             >
-              {splitChars(line2).map((char, i) => (
-                <motion.span
-                  key={`l2-${i}`}
-                  variants={charReveal}
-                  className="inline-block"
-                  style={{ whiteSpace: char === " " ? "pre" : undefined }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
+              {line2.split(" ").map((word, i) => (
+                <AnimatedWord key={`l2-${i}`} word={word} />
               ))}
             </motion.span>
           </h1>
